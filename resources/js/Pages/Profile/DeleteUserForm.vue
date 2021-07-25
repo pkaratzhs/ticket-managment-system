@@ -9,7 +9,7 @@
         </template>
 
         <template #content>
-            <div class="max-w-xl text-sm text-gray-600">
+            <div class="max-w-xl text-sm text-gray-100">
                 Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.
             </div>
 
@@ -53,54 +53,54 @@
 </template>
 
 <script>
-    import JetActionSection from '@/Jetstream/ActionSection'
-    import JetDialogModal from '@/Jetstream/DialogModal'
-    import JetDangerButton from '@/Jetstream/DangerButton'
-    import JetInput from '@/Jetstream/Input'
-    import JetInputError from '@/Jetstream/InputError'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
+import JetActionSection from "@/Jetstream/ActionSection";
+import JetDialogModal from "@/Jetstream/DialogModal";
+import JetDangerButton from "@/Jetstream/DangerButton";
+import JetInput from "@/Jetstream/Input";
+import JetInputError from "@/Jetstream/InputError";
+import JetSecondaryButton from "@/Jetstream/SecondaryButton";
 
-    export default {
-        components: {
-            JetActionSection,
-            JetDangerButton,
-            JetDialogModal,
-            JetInput,
-            JetInputError,
-            JetSecondaryButton,
+export default {
+    components: {
+        JetActionSection,
+        JetDangerButton,
+        JetDialogModal,
+        JetInput,
+        JetInputError,
+        JetSecondaryButton,
+    },
+
+    data() {
+        return {
+            confirmingUserDeletion: false,
+
+            form: this.$inertia.form({
+                password: "",
+            }),
+        };
+    },
+
+    methods: {
+        confirmUserDeletion() {
+            this.confirmingUserDeletion = true;
+
+            setTimeout(() => this.$refs.password.focus(), 250);
         },
 
-        data() {
-            return {
-                confirmingUserDeletion: false,
-
-                form: this.$inertia.form({
-                    password: '',
-                })
-            }
+        deleteUser() {
+            this.form.delete(route("current-user.destroy"), {
+                preserveScroll: true,
+                onSuccess: () => this.closeModal(),
+                onError: () => this.$refs.password.focus(),
+                onFinish: () => this.form.reset(),
+            });
         },
 
-        methods: {
-            confirmUserDeletion() {
-                this.confirmingUserDeletion = true;
+        closeModal() {
+            this.confirmingUserDeletion = false;
 
-                setTimeout(() => this.$refs.password.focus(), 250)
-            },
-
-            deleteUser() {
-                this.form.delete(route('current-user.destroy'), {
-                    preserveScroll: true,
-                    onSuccess: () => this.closeModal(),
-                    onError: () => this.$refs.password.focus(),
-                    onFinish: () => this.form.reset(),
-                })
-            },
-
-            closeModal() {
-                this.confirmingUserDeletion = false
-
-                this.form.reset()
-            },
+            this.form.reset();
         },
-    }
+    },
+};
 </script>

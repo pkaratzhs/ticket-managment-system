@@ -12,10 +12,6 @@
                 <jet-input id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus autocomplete="name" />
             </div>
 
-            <div class="mt-4">
-                <jet-label for="email" value="Email" />
-                <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required />
-            </div>
 
             <div class="mt-4">
                 <jet-label for="password" value="Password" />
@@ -53,43 +49,55 @@
 </template>
 
 <script>
-    import JetAuthenticationCard from '@/Jetstream/AuthenticationCard'
-    import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo'
-    import JetButton from '@/Jetstream/Button'
-    import JetInput from '@/Jetstream/Input'
-    import JetCheckbox from "@/Jetstream/Checkbox";
-    import JetLabel from '@/Jetstream/Label'
-    import JetValidationErrors from '@/Jetstream/ValidationErrors'
+import JetAuthenticationCard from "@/Jetstream/AuthenticationCard";
+import JetAuthenticationCardLogo from "@/Jetstream/AuthenticationCardLogo";
+import JetButton from "@/Jetstream/Button";
+import JetInput from "@/Jetstream/Input";
+import JetCheckbox from "@/Jetstream/Checkbox";
+import JetLabel from "@/Jetstream/Label";
+import JetValidationErrors from "@/Jetstream/ValidationErrors";
 
-    export default {
-        components: {
-            JetAuthenticationCard,
-            JetAuthenticationCardLogo,
-            JetButton,
-            JetInput,
-            JetCheckbox,
-            JetLabel,
-            JetValidationErrors
+export default {
+    components: {
+        JetAuthenticationCard,
+        JetAuthenticationCardLogo,
+        JetButton,
+        JetInput,
+        JetCheckbox,
+        JetLabel,
+        JetValidationErrors,
+    },
+
+    data() {
+        return {
+            form: this.$inertia.form({
+                name: "",
+                email: "",
+                password: "",
+                password_confirmation: "",
+                terms: false,
+            }),
+        };
+    },
+
+    methods: {
+        submit() {
+            this.form
+                .transform((data) => ({
+                    ...data,
+                    email: this.email
+                }))
+                .post(this.route("register"), {
+                    onFinish: () =>
+                        this.form.reset("password", "password_confirmation"),
+                });
         },
-
-        data() {
-            return {
-                form: this.$inertia.form({
-                    name: '',
-                    email: '',
-                    password: '',
-                    password_confirmation: '',
-                    terms: false,
-                })
-            }
+    },
+    computed: {
+        email: () => {
+            let params = new URL(window.location).searchParams;
+            return params.get("email");
         },
-
-        methods: {
-            submit() {
-                this.form.post(this.route('register'), {
-                    onFinish: () => this.form.reset('password', 'password_confirmation'),
-                })
-            }
-        }
-    }
+    },
+};
 </script>
