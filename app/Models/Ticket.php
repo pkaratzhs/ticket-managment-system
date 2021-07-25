@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\URL;
 
 class Ticket extends Model
 {
@@ -35,5 +36,9 @@ class Ticket extends Model
             return true;
         }
         return false;
+    }
+    public function getURL()
+    {
+        return URL::to('/tickets/'.$this->id);
     }
 }

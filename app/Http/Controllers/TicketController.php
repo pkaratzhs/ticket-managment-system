@@ -41,8 +41,10 @@ class TicketController extends Controller
             'user_id' => $request->user()->id,
             'severity' => $request->severity
         ]);
-        $ticketURL = URL::to('/tickets/'.$ticket->id);
-        Mail::to(User::where('role', 'admin')->first())->send(new TicketSubmitted($ticket, $ticketURL));
+        if ($ticket->severity=='High' || $ticket->severity=='Urgent') {
+            $emails = User::where('role', 'admin')->pluck('email');
+            Mail::to($emails)->send(new TicketSubmitted($ticket, $ticket->getURL()));
+        }
         return Redirect::route('tickets.show', $ticket);
     }
 

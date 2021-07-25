@@ -1,11 +1,7 @@
 @component('mail::message')
-## New ticket from {{ $ticket->user->email }}
+## New reply from admin {{ $reply->user->email }}
 
-### {{ $ticket->title}}
-{{ $ticket->description}}
-
-#### Severity: *{{ $ticket->severity}}*
-
+{{ $reply->reply_text }}
 
 @component('mail::button', ['url' => $ticketURL])
 See ticket
