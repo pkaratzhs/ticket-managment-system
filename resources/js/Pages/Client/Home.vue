@@ -14,11 +14,11 @@
         </template>
         <ticket-list
             v-if="state.showOpenTickets"
-            :tickets="state.openTickets"
+            :tickets="openTickets"
         ></ticket-list>
         <ticket-list
             v-else-if="!state.showOpenTickets"
-            :tickets="state.closedTickets"
+            :tickets="closedTickets"
         ></ticket-list>
     </app-layout>
 </template>
@@ -34,18 +34,11 @@ export default {
         JetSecondaryButton,
     },
     props: {
-        tickets: Object,
+        openTickets: Object,
+        closedTickets: Object
     },
     setup(props) {
         const state = reactive({
-            openTickets: computed(() =>
-                props.tickets.data.filter((ticket) => ticket.status === "Open")
-            ),
-            closedTickets: computed(() =>
-                props.tickets.data.filter(
-                    (ticket) => ticket.status === "Closed"
-                )
-            ),
             showOpenTickets: true,
         });
         return { state };

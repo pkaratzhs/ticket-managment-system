@@ -11,8 +11,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $openTickets = Ticket::whereNull('closed_at')->orderBy('updated_at', 'desc')->paginate(5);
+        $closedTickets = Ticket::whereNotNull('closed_at')->orderBy('updated_at', 'desc')->paginate(5);
         return  Inertia::render('Admin/Dashboard', [
-            'tickets' => TicketResource::collection(Ticket::all()->sortByDesc('updated_at'))
+            'closedTickets' => TicketResource::collection($closedTickets),
+            'openTickets' => TicketResource::collection($openTickets)
         ]);
     }
 }

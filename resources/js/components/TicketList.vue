@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ticket-card v-for="(ticket,index) in tickets"
+        <ticket-card v-for="(ticket,index) in tickets.data"
                     :key="index"> 
             <template #header-left>
                 {{ ticket.title }}
@@ -18,19 +18,22 @@
                 {{ ticket.created_at }}
             </template>
         </ticket-card>
+        <pagination class="mt-6 pb-6" :links="tickets.meta.links" />
     </div>
 </template>
 
 <script>
 import TicketCard from "@/components/TicketCard";
 import JetButton from "@/Jetstream/Button";
+import Pagination from "@/components/Pagination"
 export default {
     components: {
         TicketCard,
-        JetButton
+        JetButton,
+        Pagination
     },
     props: {
-        tickets: Array,
+        tickets: Object,
     },
     
 };
