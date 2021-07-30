@@ -5,6 +5,7 @@
             <form
                 @submit.prevent="submit"
                 class="flex justify-between p-2 m-4 flex-col h-auto"
+                enctype="multipart/form-data"
             >
                 <label for="title" class="text-gray-100">Title</label>
                 <input
@@ -24,6 +25,14 @@
                     placeholder="Describe your problem"
                     class="border-gray-900 focus:border-coolGray-600 bg-blueGray-200 focus:ring focus:ring-coolGray-500 focus:ring-opacity-50 rounded-md shadow-sm m-2 p-2"
                 />
+                <label for="images" class="text-gray-100">Images</label>
+                <input
+                    type="file"
+                    @input="form.images = $event.target.files"
+                    name="images"
+                    class="border-gray-900 focus:border-coolGray-600 bg-blueGray-200 focus:ring focus:ring-coolGray-500 focus:ring-opacity-50 rounded-md shadow-sm m-2 p-2"
+                    multiple
+                >
                 <div class="flex justify-between">
                     <jet-button class="ml-2 w-max"> Submit </jet-button>
                     <label for="severity" class="text-gray-100">Severity Level:
@@ -54,15 +63,19 @@ export default {
         const form = useForm({
             title: null,
             description: null,
+            images:null,
             severity: "Low",
         });
-        return { form };
+
+        function submit(){
+            this.form.post("/tickets")
+        }
+        return{
+            form,
+            submit
+        }
     },
-    methods: {
-        submit() {
-            this.form.post("/tickets");
-        },
-    },
+  
 };
 </script>
 

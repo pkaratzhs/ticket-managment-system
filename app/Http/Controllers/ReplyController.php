@@ -13,11 +13,21 @@ class ReplyController extends Controller
     public function store(Ticket $ticket, Request $request)
     {
         $request->validate([
-            'reply_text' => ['required','max:50','min:3']
+            'reply_text' => ['required','max:50','min:3'],
+            'images.*' => ['mimes:jpg,jpeg,png','max:2048'],
+            'images' => ['max:5']
         ]);
+        $imageNames=array();
+        if ($images = $request->file('images')) {
+            foreach ($images as $image) {
+                $path = $image->store('images');
+                $imageNames[]= '/storage/'.$path;
+            }
+        }
         $reply = $ticket->replies()->create([
             'reply_text' => $request->reply_text,
-            'user_id' => $request->user()->id
+            'user_id' => $request->user()->id,
+            'images' => $request->file('images') ? implode('|', $imageNames) : null,
         ]);
         
         if (User::where('role', 'admin')->find($reply->user_id)) {

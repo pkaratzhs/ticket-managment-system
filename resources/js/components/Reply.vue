@@ -16,12 +16,18 @@
         <div class="px-6 py-2 border-gray-600">
            {{ reply.reply_text }}
         </div>
-
+        <div v-if="reply.images" class="px-6 py-2 border-gray-600 border-t">
+           <images :images="reply.images"/>
+        </div>
     </div>
 </div>
 </template>
 <script>
+import Images from "@/components/Images"
 export default {
+    components:{
+        Images
+    },
     props: {
         reply: Object,
     },

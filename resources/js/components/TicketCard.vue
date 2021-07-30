@@ -17,7 +17,7 @@
         <div class="p-6 border-b border-gray-600">
            <slot name="description"></slot>
         </div>
-
+        <slot name="images"></slot>
         <!-- card footer -->
         <div class="px-6 py-3 border-gray-200 text-right flex justify-between">
             <!-- button link -->

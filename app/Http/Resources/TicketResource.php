@@ -23,6 +23,7 @@ class TicketResource extends JsonResource
             'created_at' => Carbon::parse($this->created_at)->diffForHumans(),
             'replies' => ReplyResource::collection($this->whenLoaded('replies')),
             'severity' => $this->severity,
+            'images' => $this->images ? explode('|', $this->images) : null,
             'closed_at' => Carbon::parse($this->closed_at)->diffForHumans(),
             'status' => $this->when($this->isClosed(), 'Closed', 'Open')
         ];

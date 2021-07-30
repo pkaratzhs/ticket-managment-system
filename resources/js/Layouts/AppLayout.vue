@@ -382,7 +382,7 @@
             <main>
                 <div class="py-12">
                     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                        <div class="overflow-hidden shadow-xl sm:rounded-lg">
+                        <div class="overflow-hidden sm:rounded-lg">
                             <slot></slot>
                         </div>
                     </div>

@@ -15,8 +15,15 @@
             <template #header-right>
                 <jet-danger-button v-if="ticket.status === 'Open'" @click="modalOpen = !modalOpen">Close</jet-danger-button>
             </template>
+            
             <template #description>
                 {{ ticket.description }}
+            </template>
+            <template #images v-if="ticket.images">
+                <div class="p-6 border-b border-gray-600">
+                    <h1>Images</h1>
+                    <images :images="ticket.images"/>
+                </div>
             </template>
             <template #footer-left>
                 {{ ticket.user.name }}
@@ -32,12 +39,14 @@ import JetDangerButton from "@/Jetstream/DangerButton";
 import JetConfirmationModal from "@/Jetstream/ConfirmationModal";
 import JetSecondaryButton from "@/Jetstream/SecondaryButton";
 import TicketCard from "@/components/TicketCard"
+import Images from "@/components/Images"
 export default {
     components: {
         JetDangerButton,
         JetConfirmationModal,
         JetSecondaryButton,
-        TicketCard
+        TicketCard,
+        Images
     },
     props: {
         ticket: Object,
@@ -45,6 +54,7 @@ export default {
     data() {
         return {
             modalOpen: false,
+            index:null
         };
     },
     methods: {

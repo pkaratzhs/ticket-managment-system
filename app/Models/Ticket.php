@@ -15,6 +15,7 @@ class Ticket extends Model
         'description',
         'user_id',
         'severity',
+        'images',
     ];
     protected $casts = [
         'closed_at' => 'datetime'

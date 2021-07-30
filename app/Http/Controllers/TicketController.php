@@ -32,14 +32,24 @@ class TicketController extends Controller
     {
         $request->validate([
             'title' => ['required','max:50','min:3'],
-            'description' => ['required','max:800','min:3']
+            'description' => ['required','max:800','min:3'],
+            'images.*' => ['mimes:jpg,jpeg,png','max:2048'],
+            'images' => ['max:5']
         ]);
+        $imageNames=array();
+        if ($images = $request->file('images')) {
+            foreach ($images as $image) {
+                $path = $image->store('images');
+                $imageNames[]= '/storage/'.$path;
+            }
+        }
 
         $ticket = Ticket::create([
             'title' => $request->title,
             'description' => $request->description,
             'user_id' => $request->user()->id,
-            'severity' => $request->severity
+            'severity' => $request->severity,
+            'images' => $request->file('images') ? implode('|', $imageNames) : null,
         ]);
         if ($ticket->severity=='High' || $ticket->severity=='Urgent') {
             $emails = User::where('role', 'admin')->pluck('email');

@@ -9,6 +9,14 @@
                 placeholder="Reply to ticket"
                 class="w-full border-gray-600 border-2 rounded-md"
             >
+            <input
+                    type="file"
+                    @input="form.images = $event.target.files"
+                    ref="imageUpload"
+                    name="images"
+                    class="border-gray-900 focus:border-coolGray-600 bg-blueGray-200 focus:ring focus:ring-coolGray-500 focus:ring-opacity-50 rounded-md shadow-sm p-2 ml-1"
+                    multiple
+            >
             <jet-button class="ml-2"> Reply </jet-button>
         </form>
     </div>
@@ -23,19 +31,27 @@ export default {
     props: {
         ticket_id: Number,
     },
-    setup() {
+    setup(props) {
         const form = useForm({
             reply_text: null,
+            images:null
         });
-        return { form };
+  
+        return { 
+            form,     
+        };
     },
-    methods: {
-        submit() {
-            this.form.post(`/tickets/${this.ticket_id}/reply`, {
+    methods:{
+        submit(){
+                this.form.post(`/tickets/${this.ticket_id}/reply`, {
                 preserveScroll: true,
-                onSuccess: () => this.form.reset("reply_text"),
-            });
-        },
-    },
+                onSuccess: () => {
+                    this.form.reset("reply_text")
+                    this.form.reset("images")
+                    this.$refs.imageUpload.value = null
+                },
+            });  
+        }
+    }
 };
 </script>

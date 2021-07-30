@@ -18,6 +18,7 @@ class CreateRepliesTable extends Migration
             $table->foreignId('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('reply_text');
+            $table->mediumText('images')->nullable();
             $table->timestamps();
         });
     }

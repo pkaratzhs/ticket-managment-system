@@ -20,6 +20,7 @@ class ReplyResource extends JsonResource
             'reply_text' => $this->reply_text,
             'user' => $this->user->name,
             'created_at' => Carbon::parse($this->created_at)->diffForHumans(),
+            'images' => $this->images ? explode('|', $this->images) : null
         ];
     }
 }

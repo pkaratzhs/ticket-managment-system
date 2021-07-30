@@ -19,6 +19,7 @@ class CreateTicketsTable extends Migration
             $table->text('title');
             $table->string('description', 800);
             $table->string('severity')->default('Low');
+            $table->mediumText('images')->nullable();
             $table->timestamp('closed_at')->nullable();
             $table->timestamps();
         });
