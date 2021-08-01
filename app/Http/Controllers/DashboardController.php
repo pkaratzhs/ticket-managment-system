@@ -9,13 +9,19 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $openTickets = Ticket::whereNull('closed_at')->orderBy('updated_at', 'desc')->paginate(5);
         $closedTickets = Ticket::whereNotNull('closed_at')->orderBy('updated_at', 'desc')->paginate(5);
         return  Inertia::render('Admin/Dashboard', [
-            'closedTickets' => TicketResource::collection($closedTickets),
-            'openTickets' => TicketResource::collection($openTickets)
+            'ticketStatus' => $request->ticketStatus,
+            'tickets' => function () use ($request, $openTickets, $closedTickets) {
+                if ($request->ticketStatus === 'closed') {
+                    return TicketResource::collection($closedTickets)->withQueryString();
+                }
+                return TicketResource::collection($openTickets)->withQueryString();
+            },
+
         ]);
     }
 }

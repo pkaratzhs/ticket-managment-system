@@ -10,9 +10,11 @@
 </template>
   
 <script>
+
 export default {
   props: {
-    links: Array,
+    links: Array
   },
+
 }
 </script> 

@@ -18,7 +18,7 @@
                 {{ ticket.created_at }}
             </template>
         </ticket-card>
-        <pagination class="mt-6 pb-6" :links="tickets.meta.links" />
+        <pagination class="mt-6 pb-6" :links="tickets.links" />
     </div>
 </template>
 
