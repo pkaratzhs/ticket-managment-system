@@ -42,4 +42,22 @@ class Ticket extends Model
     {
         return URL::to('/tickets/'.$this->id);
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->whereHas('user', function ($query) use ($search) {
+                $query->where('name', 'like', '%'.$search.'%')
+                        ->orWhere('email', 'like', '%'.$search.'%')
+                        ->orWhere('title', 'like', '%'.$search.'%')
+                        ->orWhere('description', 'like', '%'.$search.'%');
+            });
+        })->when($filters['ticketStatus'] ?? null, function ($query, $ticketStatus) {
+            if ($ticketStatus === 'closed') {
+                $query->whereNotNull('closed_at');
+            } else {
+                $query->whereNull('closed_at');
+            }
+        });
+    }
 }
