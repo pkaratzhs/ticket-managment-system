@@ -58,6 +58,8 @@ class Ticket extends Model
             } else {
                 $query->whereNull('closed_at');
             }
+        })->when($filters['severity'] ?? null, function ($query, $severity) {
+            $query->where('severity', '=', $severity);
         });
     }
 }

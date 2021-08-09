@@ -11,9 +11,9 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $tickets = Ticket::filter($request->only('search', 'ticketStatus'))->orderBy('updated_at', 'desc')->paginate(5);
+        $tickets = Ticket::filter($request->only('search', 'ticketStatus', 'severity'))->orderBy('updated_at', 'desc')->paginate(5);
         return  Inertia::render('Admin/Dashboard', [
-            'filters' => $request->all('ticketStatus', 'search'),
+            'filters' => $request->only('ticketStatus', 'search', 'severity'),
             'tickets' => TicketResource::collection($tickets)->withQueryString()
         ]);
     }
