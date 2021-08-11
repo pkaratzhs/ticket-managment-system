@@ -18509,11 +18509,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {
     tickets: Object,
-    filters: {
-      ticketStatus: String,
-      search: String,
-      severity: String
-    },
+    ticketStatus: String,
+    search: String,
+    severity: String,
     whichRoute: String
   },
   setup: function setup(props) {
@@ -18533,7 +18531,8 @@ __webpack_require__.r(__webpack_exports__);
       deep: true,
       handler: lodash_debounce__WEBPACK_IMPORTED_MODULE_5___default()(function () {
         _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__.Inertia.get(this.route(this.whichRoute), lodash_pickBy__WEBPACK_IMPORTED_MODULE_4___default()(this.form), {
-          preserveState: true
+          preserveState: true,
+          preserveScroll: true
         });
       }, 250)
     }
@@ -18573,10 +18572,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _components_Images__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/components/Images */ "./resources/js/components/Images.vue");
+/* harmony import */ var _Jetstream_ValidationErrors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/ValidationErrors */ "./resources/js/Jetstream/ValidationErrors.vue");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    Images: _components_Images__WEBPACK_IMPORTED_MODULE_0__.default
+    Images: _components_Images__WEBPACK_IMPORTED_MODULE_0__.default,
+    JetValidationErrors: _Jetstream_ValidationErrors__WEBPACK_IMPORTED_MODULE_1__.default
   },
   props: {
     reply: Object
@@ -23588,7 +23590,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "class": ["mr-1 mb-1 px-4 py-3 text-sm leading-4 border rounded text-gray-200 hover:bg-blueGray-600 focus:border-indigo-500 focus:text-indigo-500", {
         'bg-blueGray-700 text-white': link.active
       }],
-      href: link.url
+      href: link.url,
+      "preserve-scroll": ""
     }, {
       "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
         return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
@@ -23644,7 +23647,9 @@ var _hoisted_5 = {
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_images = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("images");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" card header "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.reply.user) + " : ", 1
+  var _component_jet_validation_errors = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-validation-errors");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" card header "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.reply.user) + " : ", 1
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.reply.created_at), 1
   /* TEXT */
@@ -23654,7 +23659,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     images: $props.reply.images
   }, null, 8
   /* PROPS */
-  , ["images"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
+  , ["images"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_validation_errors, {
+    "class": "ml-6 pt-4"
+  })], 64
+  /* STABLE_FRAGMENT */
+  );
 }
 
 /***/ }),

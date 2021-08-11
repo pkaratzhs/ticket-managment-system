@@ -7,6 +7,7 @@ use App\Mail\TicketSubmitted;
 use App\Models\Ticket;
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -53,7 +54,11 @@ class TicketController extends Controller
         ]);
         if ($ticket->severity=='High' || $ticket->severity=='Urgent') {
             $emails = User::where('role', 'admin')->pluck('email');
-            Mail::to($emails)->send(new TicketSubmitted($ticket, $ticket->getURL()));
+            try {
+                Mail::to($emails)->send(new TicketSubmitted($ticket, $ticket->getURL()));
+            } catch (\Swift_TransportException $e) {
+                //
+            }
         }
         return Redirect::route('tickets.show', $ticket);
     }

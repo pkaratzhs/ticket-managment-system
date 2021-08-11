@@ -16,8 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->create(['email'=>'pkaratzhs@gmail.com','password' => bcrypt('password'),'role' => 'admin']);
-        User::factory()->create(['email'=>'pkaratzhs@hotmail.com','password' => bcrypt('password'),'role' => 'client']);
+        User::factory()->create(['email'=>'admin@example.com','password' => bcrypt('password'),'role' => 'admin']);
+        User::factory()->create(['email'=>'user@example.com','password' => bcrypt('password'),'role' => 'client']);
         User::factory()
             ->times(5)
             ->has(Ticket::factory()->times(2))

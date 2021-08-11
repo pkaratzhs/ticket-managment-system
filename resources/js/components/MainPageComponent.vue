@@ -46,11 +46,9 @@ export default {
     },
     props: {
         tickets: Object,
-        filters:{
-            ticketStatus: String,
-            search: String,
-            severity: String
-        },
+        ticketStatus: String,
+        search: String,
+        severity: String,
         whichRoute: String
     },
     setup(props) {
@@ -59,7 +57,7 @@ export default {
             search: props.search ?? '',
             severity: props.severity ?? ''
         });
-    
+        
         return {
             form,
         }
@@ -68,7 +66,7 @@ export default {
         form: {
         deep: true,
         handler: debounce(function() {
-            Inertia.get(this.route(this.whichRoute), pickBy(this.form), { preserveState: true })
+            Inertia.get(this.route(this.whichRoute), pickBy(this.form), { preserveState: true, preserveScroll:true })
         }, 250),
     },
   }, 

@@ -24,7 +24,15 @@ class InviteController extends Controller
         
         if (!User::where('email', '=', $request->email)->first()) {
             // need to catch possible errors
-            Mail::to($request->email)->send(new InvitationSent($inviteurl));
+            try {
+                Mail::to($request->email)->send(new InvitationSent($inviteurl));
+            } catch (\Swift_TransportException $e) {
+                return back()->with([
+                    'flash' => [
+                        'message' => $e->getMessage()
+                    ]
+                ]);
+            }
             return back()->with([
                 'flash' => [
                     'message'=>'Invite sent to '.$request->email

@@ -21,12 +21,15 @@
         </div>
     </div>
 </div>
+<jet-validation-errors class="ml-6 pt-4" />
 </template>
 <script>
 import Images from "@/components/Images"
+import JetValidationErrors from "@/Jetstream/ValidationErrors";
 export default {
     components:{
-        Images
+        Images,
+        JetValidationErrors
     },
     props: {
         reply: Object,

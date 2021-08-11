@@ -45,21 +45,21 @@ class Ticket extends Model
 
     public function scopeFilter($query, array $filters)
     {
-        $query->when($filters['search'] ?? null, function ($query, $search) {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
             $query->whereHas('user', function ($query) use ($search) {
                 $query->where('name', 'like', '%'.$search.'%')
                         ->orWhere('email', 'like', '%'.$search.'%')
                         ->orWhere('title', 'like', '%'.$search.'%')
                         ->orWhere('description', 'like', '%'.$search.'%');
             });
-        })->when($filters['ticketStatus'] ?? null, function ($query, $ticketStatus) {
-            if ($ticketStatus === 'closed') {
-                $query->whereNotNull('closed_at');
-            } else {
-                $query->whereNull('closed_at');
-            }
-        })->when($filters['severity'] ?? null, function ($query, $severity) {
+        })->when($filters['severity'] ?? false, function ($query, $severity) {
             $query->where('severity', '=', $severity);
         });
+    
+        if (($filters['ticketStatus'] ?? false) === 'closed') {
+            $query->whereNotNull('closed_at');
+        } else {
+            $query->whereNull('closed_at');
+        }
     }
 }
