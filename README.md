@@ -76,3 +76,5 @@ You can login as an admin with:
 You can also login as a user with: 
 - **Username:** user@example.com
 - **Password:** password
+
+Theres also an email sending feature but you have to setup mailhog or a similar service

@@ -31,7 +31,11 @@ class ReplyController extends Controller
         ]);
         
         if (User::where('role', 'admin')->find($reply->user_id)) {
-            Mail::to($ticket->user)->send(new ReplySubmitted($reply, $ticket->getURL()));
+            try {
+                Mail::to($ticket->user)->send(new ReplySubmitted($reply, $ticket->getURL()));
+            } catch (\Swift_TransportException $e) {
+                return redirect()->back();
+            }
         }
         return redirect()->back();
     }
