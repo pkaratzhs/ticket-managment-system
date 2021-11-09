@@ -48,7 +48,7 @@
     import JetCheckbox from '@/Jetstream/Checkbox'
     import JetLabel from '@/Jetstream/Label'
     import JetValidationErrors from '@/Jetstream/ValidationErrors'
-
+    import Empty from '@/Layouts/Empty'
     export default {
         components: {
             JetAuthenticationCard,
@@ -59,7 +59,7 @@
             JetLabel,
             JetValidationErrors
         },
-
+    layout : Empty,
         props: {
             canResetPassword: Boolean,
             status: String

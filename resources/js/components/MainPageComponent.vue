@@ -1,5 +1,4 @@
 <template>
-    <app-layout>
     <div class="flex justify-between ">
         <div class="font-semibold text-xl text-gray-800 leading-tight mb-5 flex w-24">
             <div class="mx-2">
@@ -27,11 +26,10 @@
         </div>
     </div>
         <ticket-list :tickets = "tickets" />
-    </app-layout>
+    
 </template>
 
 <script>
-import AppLayout from "@/Layouts/AppLayout";
 import TicketList from "@/components/TicketList";
 import JetSecondaryButton from "@/Jetstream/SecondaryButton";
 import { reactive } from "@vue/runtime-core";
@@ -40,7 +38,6 @@ import pickBy from 'lodash/pickBy'
 import debounce from 'lodash/debounce'
 export default {
     components: {
-        AppLayout,
         TicketList,
         JetSecondaryButton,
     },

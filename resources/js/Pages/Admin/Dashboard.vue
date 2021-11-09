@@ -5,7 +5,7 @@
 <script>
 import MainPageComponent from '@/components/MainPageComponent'
 export default {
-    components:{
+components:{
         MainPageComponent
     },
     props: {
